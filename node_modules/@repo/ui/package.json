@@ -1,0 +1,12 @@
+{
+  "name": "@repo/ui",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "vue": "^3.5.0"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit"
+  }
+}
