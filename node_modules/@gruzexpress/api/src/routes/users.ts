@@ -20,16 +20,34 @@ export const userRoutes = async (fastify: FastifyInstance) => {
       return reply.status(401).send({ success: false, message: 'Неверный токен' });
     }
   }] }, async (request, reply) => {
-    const users = await User.find().select('-password').sort({ createdAt: -1 });
+    const { page = 1, limit = 10, search } = request.query as any;
+    const query: any = {};
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    const total = await User.countDocuments(query);
+    const skip = (Number(page) - 1) * Number(limit);
+    const users = await User.find(query).select('-password').sort({ createdAt: -1 }).skip(skip).limit(Number(limit));
+
     return reply.send({
       success: true,
-      data: users.map(u => ({
-        _id: u._id.toString(),
-        name: u.name,
-        email: u.email,
-        role: u.role,
-        createdAt: u.createdAt,
-      })),
+      data: {
+        data: users.map(u => ({
+          _id: u._id.toString(),
+          name: u.name,
+          email: u.email,
+          role: u.role,
+          createdAt: u.createdAt,
+        })),
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages: Math.ceil(total / Number(limit)),
+      },
     });
   });
 

@@ -1,60 +1,5 @@
 <template>
-  <header class="site-header" :class="{ 'header-scrolled': isScrolled }">
-    <div class="header-top">
-      <div class="container header-top-inner">
-        <div class="contact-info">
-          <a href="tel:+78005553535" class="contact-link">
-            <svg
-              class="contact-icon"
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-              />
-            </svg>
-            +7 (800) 555-35-35
-          </a>
-          <span class="contact-divider">|</span>
-          <a href="mailto:info@gruzexpress.ru" class="email-link">
-            <svg
-              class="contact-icon"
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-              />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-            info@gruzexpress.ru
-          </a>
-        </div>
-        <div class="work-hours">
-          <svg
-            class="work-icon"
-            viewBox="0 0 24 24"
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-          Круглосуточно
-        </div>
-      </div>
-    </div>
+  <header class="site-header">
     <div class="container header-inner">
       <router-link to="/" class="logo">
         <span class="logo-text">ГрузЭкспресс</span>
@@ -115,7 +60,7 @@
                   class="dropdown-item"
                   @click="closeMobileMenu"
                 >
-                  <span class="dropdown-item-icon">🚚</span>
+                  <img src="\icons\all-services.svg" class="dropdown-item-icon"/>
                   <div class="dropdown-item-text">
                     <span class="dropdown-item-title">Все услуги</span>
                     <span class="dropdown-item-desc">Полный список услуг</span>
@@ -126,7 +71,7 @@
                   class="dropdown-item"
                   @click="closeMobileMenu"
                 >
-                  <span class="dropdown-item-icon">🏙️</span>
+                  <img src="\icons\city-delivery.svg" class="dropdown-item-icon"/>
                   <div class="dropdown-item-text">
                     <span class="dropdown-item-title">Городские перевозки</span>
                     <span class="dropdown-item-desc">Быстро по городу</span>
@@ -137,7 +82,7 @@
                   class="dropdown-item"
                   @click="closeMobileMenu"
                 >
-                  <span class="dropdown-item-icon">🛣️</span>
+                  <img src="\icons\icons8-страна-48.png" class="dropdown-item-icon"/>
                   <div class="dropdown-item-text">
                     <span class="dropdown-item-title"
                       >Межгородские перевозки</span
@@ -150,7 +95,7 @@
                   class="dropdown-item"
                   @click="closeMobileMenu"
                 >
-                  <span class="dropdown-item-icon">📦</span>
+                  <img src="\icons\package.svg" class="dropdown-item-icon"/>
                   <div class="dropdown-item-text">
                     <span class="dropdown-item-title">Переезды</span>
                     <span class="dropdown-item-desc">Квартиры и офисы</span>
@@ -161,7 +106,7 @@
                   class="dropdown-item"
                   @click="closeMobileMenu"
                 >
-                  <span class="dropdown-item-icon">🏗️</span>
+                  <img src="\icons\oversized-cargo.svg" class="dropdown-item-icon"/>
                   <div class="dropdown-item-text">
                     <span class="dropdown-item-title">Негабаритные грузы</span>
                     <span class="dropdown-item-desc">Спецтехника</span>
@@ -199,6 +144,15 @@
           </li>
           <li>
             <router-link
+              to="/gallery"
+              class="nav-link"
+              exact-active-class="nav-link-active"
+              @click="closeMobileMenu"
+              >Галерея</router-link
+            >
+          </li>
+          <li>
+            <router-link
               to="/contacts"
               class="nav-link"
               exact-active-class="nav-link-active"
@@ -216,21 +170,26 @@
           class="header-btn header-btn-login"
           >Войти</router-link
         >
-        <router-link v-else to="/profile" class="header-btn header-btn-profile">
-          <svg
-            class="profile-icon"
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          {{ authStore.user?.name || "Профиль" }}
-        </router-link>
+        <template v-else>
+          <a v-if="authStore.isAdmin" href="/admin/dashboard" target="_blank" class="header-btn header-btn-admin">
+            ⚙️ Админ
+          </a>
+          <router-link to="/profile" class="header-btn header-btn-profile">
+            <svg
+              class="profile-icon"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            {{ authStore.user?.name || "Профиль" }}
+          </router-link>
+        </template>
         <router-link to="/order" class="header-btn header-btn-cta"
           >Оформить</router-link
         >
@@ -252,8 +211,6 @@ import { useAuthStore } from "../stores/auth";
 const authStore = useAuthStore();
 const mobileMenuOpen = ref(false);
 const dropdownOpen = ref(false);
-const isScrolled = ref(false);
-
 function toggleMobileMenu() {
   mobileMenuOpen.value = !mobileMenuOpen.value;
   document.body.style.overflow = mobileMenuOpen.value ? "hidden" : "";
@@ -265,17 +222,7 @@ function closeMobileMenu() {
   document.body.style.overflow = "";
 }
 
-function handleScroll() {
-  isScrolled.value = window.scrollY > 50;
-}
-
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll, { passive: true });
-});
-
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
+onMounted(() => {});
 </script>
 
 <style scoped>
@@ -284,77 +231,7 @@ onUnmounted(() => {
   box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
-  z-index: 1000;
-  transition: all var(--transition-base);
-}
-
-.header-scrolled {
-  box-shadow: var(--shadow-lg);
-  background: rgba(21, 77, 99, 0.98);
-  backdrop-filter: blur(10px);
-}
-
-/* Top bar */
-.header-top {
-  background: rgba(0, 0, 0, 0.15);
-  padding: var(--spacing-xs) 0;
-  font-size: var(--font-size-xs);
-  transition:
-    max-height 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.header-scrolled .header-top {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  padding: 0;
-}
-
-.header-top-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.contact-info {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.contact-link,
-.email-link {
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  transition: color var(--transition-fast);
-}
-
-.contact-link:hover,
-.email-link:hover {
-  color: var(--color-white);
-}
-
-.contact-icon {
-  opacity: 0.8;
-}
-
-.contact-divider {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.work-hours {
-  color: rgba(255, 255, 255, 0.7);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.work-icon {
-  opacity: 0.7;
+  z-index: var(--z-sticky);
 }
 
 /* Main header */
@@ -376,7 +253,7 @@ onUnmounted(() => {
 }
 
 .logo:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .logo-text {
@@ -430,6 +307,19 @@ onUnmounted(() => {
 .nav-link-active {
   color: var(--color-white);
   background: rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--color-secondary);
+  border-radius: 1px;
 }
 
 /* Dropdown */
@@ -489,7 +379,9 @@ onUnmounted(() => {
 }
 
 .dropdown-item-icon {
-  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
@@ -562,24 +454,38 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
+.header-btn-admin {
+  color: var(--color-white);
+  background: rgba(230, 126, 34, 0.3);
+  border: 2px solid rgba(230, 126, 34, 0.5);
+  font-size: var(--font-size-sm);
+}
+
+.header-btn-admin:hover {
+  background: rgba(230, 126, 34, 0.5);
+  border-color: rgba(230, 126, 34, 0.7);
+  transform: translateY(-1px);
+}
+
 .profile-icon {
   opacity: 0.9;
   flex-shrink: 0;
 }
 
 .header-btn-cta {
-  background: var(--color-secondary);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+  background-size: 200% auto;
   color: var(--color-white);
   font-weight: 600;
   border: 2px solid var(--color-secondary);
-  box-shadow: 0 2px 8px rgba(230, 126, 34, 0.2);
+  box-shadow: 0 2px 12px rgba(230, 126, 34, 0.25);
 }
 
 .header-btn-cta:hover {
-  background: var(--color-secondary-dark);
+  background-position: right center;
   border-color: var(--color-secondary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+  box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
 }
 
 /* Mobile menu button */
@@ -745,23 +651,6 @@ onUnmounted(() => {
   .header-btn {
     width: 100%;
     justify-content: center;
-  }
-
-  .header-top-inner {
-    flex-direction: column;
-    gap: var(--spacing-xs);
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-top .contact-info {
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-
-  .contact-divider {
-    display: none;
   }
 }
 </style>

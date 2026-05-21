@@ -10,7 +10,7 @@
           <h2>Свяжитесь с нами</h2>
 
           <div class="contact-item">
-            <div class="contact-icon">📞</div>
+            <img src="\icons\phone.svg" class="contact-icon"/>
             <div>
               <h3>Телефон</h3>
               <p class="contact-value">
@@ -21,7 +21,7 @@
           </div>
 
           <div class="contact-item">
-            <div class="contact-icon">✉️</div>
+            <img src="\icons\mail.svg" class="contact-icon"/>
             <div>
               <h3>Email</h3>
               <p class="contact-value">
@@ -32,7 +32,7 @@
           </div>
 
           <div class="contact-item">
-            <div class="contact-icon">📍</div>
+            <img src="\icons\map-pin.svg" class="contact-icon-place"/>
             <div>
               <h3>Адрес</h3>
               <p class="contact-value">г. Москва, ул. Транспортная, д. 15, офис 301</p>
@@ -41,7 +41,7 @@
           </div>
 
           <div class="contact-item">
-            <div class="contact-icon">🕐</div>
+            <img src="\icons\clock.svg" class="contact-icon"/>
             <div>
               <h3>График работы</h3>
               <table class="schedule-table">
@@ -227,7 +227,16 @@ async function submitForm() {
 }
 
 .contact-icon {
-  font-size: 2rem;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.contact-icon-place {
+  width: 32px;
+  height: 45px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 

@@ -24,30 +24,6 @@
           </p>
         </div>
 
-        <!-- Информация для тестового входа -->
-        <div class="demo-notice">
-          <svg
-            class="demo-icon"
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="16" x2="12" y2="12" />
-            <line x1="12" y1="8" x2="12.01" y2="8" />
-          </svg>
-          <div class="demo-content">
-            <p class="demo-title">Тестовые данные для входа:</p>
-            <p class="demo-credentials">
-              <span class="demo-label">Админ:</span> admin@gruzexpress.ru /
-              admin123
-            </p>
-          </div>
-        </div>
-
         <form @submit.prevent="handleLogin" class="auth-form" novalidate>
           <BaseInput
             v-model="form.values.email"
@@ -205,8 +181,14 @@ async function handleLogin() {
       form.values.password,
     )) as ApiResponse<AuthResponse> | undefined;
     if (response?.success && response.data) {
-      success("Вы успешно вошли в аккаунт");
       await authStore.fetchMe();
+      // Блокируем вход админа через обычный сайт
+      if (authStore.isAdmin) {
+        authStore.logout();
+        error("Администраторы не могут входить через этот сайт. Используйте панель управления.");
+        return;
+      }
+      success("Вы успешно вошли в аккаунт");
       router.push("/profile");
     } else {
       error(

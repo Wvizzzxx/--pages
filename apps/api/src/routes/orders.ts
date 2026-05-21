@@ -4,6 +4,7 @@ import { Order } from '../models/Order';
 import { Service } from '../models/Service';
 import { User } from '../models/User';
 import { publicOrderSchema, updateOrderStatusSchema } from '@repo/schemas';
+import { sendEmail, orderStatusEmailHtml } from '../lib/email';
 
 export const orderRoutes = async (fastify: FastifyInstance) => {
   // Создание публичного заказа (без авторизации)
@@ -42,6 +43,27 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
         }
       }
 
+      // Скидочная система для авторизованных пользователей
+      let discountPercent = 0;
+      let discountAmount = 0;
+      if (userId) {
+        const user = await User.findById(userId);
+        if (user) {
+          const allUserOrders = await Order.countDocuments({ userId });
+          user.totalOrders = allUserOrders + 1;
+          if (user.totalOrders >= 20) user.discount = 15;
+          else if (user.totalOrders >= 10) user.discount = 10;
+          else if (user.totalOrders >= 5) user.discount = 5;
+          else user.discount = 0;
+          await user.save();
+          discountPercent = user.discount;
+          if (discountPercent > 0 && total > 0) {
+            discountAmount = Math.round(total * discountPercent / 100);
+            total = total - discountAmount;
+          }
+        }
+      }
+
       const order = await Order.create({
         userId,
         serviceId: parsed.data.serviceId || null,
@@ -56,8 +78,10 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
 
       return reply.status(201).send({
         success: true,
-        data: order,
-        message: 'Заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.',
+        data: { ...order.toObject(), discount: discountPercent, discountAmount },
+        message: discountPercent > 0
+          ? `Заявка отправлена! Применена скидка ${discountPercent}% (−${discountAmount.toLocaleString('ru-RU')} ₽)`
+          : 'Заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.',
       });
     } catch (error) {
       console.error('Error creating public order:', error);
@@ -95,6 +119,25 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
         }
       }
 
+      // Скидочная система: считаем количество завершённых заказов
+      const completedOrders = await Order.countDocuments({ userId, status: 'completed' });
+      user.totalOrders = completedOrders + 1; // +1 за текущий (ещё не completed, но считаем все созданные)
+      // Actually count ALL orders for this user
+      const allUserOrders = await Order.countDocuments({ userId });
+      user.totalOrders = allUserOrders + 1; // +1 за текущий
+      if (user.totalOrders >= 20) user.discount = 15;
+      else if (user.totalOrders >= 10) user.discount = 10;
+      else if (user.totalOrders >= 5) user.discount = 5;
+      else user.discount = 0;
+      await user.save();
+
+      // Применяем скидку к сумме заказа
+      let discountAmount = 0;
+      if (user.discount > 0 && total > 0) {
+        discountAmount = Math.round(total * user.discount / 100);
+        total = total - discountAmount;
+      }
+
       const order = await Order.create({
         userId,
         serviceId: body.serviceId || null,
@@ -109,8 +152,10 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
 
       return reply.status(201).send({
         success: true,
-        data: order,
-        message: 'Заявка успешно отправлена!',
+        data: { ...order.toObject(), discount: user.discount, discountAmount },
+        message: user.discount > 0
+          ? `Заявка отправлена! Применена скидка ${user.discount}% (−${discountAmount.toLocaleString('ru-RU')} ₽)`
+          : 'Заявка успешно отправлена!',
       });
     } catch (error) {
       console.error('Error creating order:', error);
@@ -165,11 +210,36 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
       return reply.status(401).send({ success: false, message: 'Неверный токен' });
     }
 
-    const orders = await Order.find()
+    const { page = 1, limit = 10, status, search } = request.query as any;
+    const query: any = {};
+    if (status) query.status = status;
+    if (search) {
+      query.$or = [
+        { customerName: { $regex: search, $options: 'i' } },
+        { phone: { $regex: search, $options: 'i' } },
+        { address: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    const total = await Order.countDocuments(query);
+    const skip = (Number(page) - 1) * Number(limit);
+    const orders = await Order.find(query)
       .populate('userId', 'name email')
       .populate('serviceId')
-      .sort({ createdAt: -1 });
-    return reply.send({ success: true, data: orders });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit));
+
+    return reply.send({
+      success: true,
+      data: {
+        docs: orders,
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages: Math.ceil(total / Number(limit)),
+      },
+    });
   });
 
   // Обновление статуса заказа (админ)
@@ -201,6 +271,41 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
       if (!order) {
         return reply.status(404).send({ success: false, message: 'Заказ не найден' });
       }
+
+      // Пересчёт скидки при завершении заказа
+      if (parsed.data.status === 'completed' && order.userId) {
+        try {
+          const user = await User.findById(order.userId);
+          if (user) {
+            const allUserOrders = await Order.countDocuments({ userId: user._id });
+            user.totalOrders = allUserOrders;
+            if (user.totalOrders >= 20) user.discount = 15;
+            else if (user.totalOrders >= 10) user.discount = 10;
+            else if (user.totalOrders >= 5) user.discount = 5;
+            else user.discount = 0;
+            await user.save();
+          }
+        } catch (discountErr) {
+          console.error('[Orders] Ошибка пересчёта скидки:', discountErr);
+        }
+      }
+
+      // Отправка email-уведомления пользователю
+      try {
+        if (order.userId) {
+          const user = await User.findById(order.userId);
+          if (user?.email) {
+            await sendEmail({
+              to: user.email,
+              subject: `ГрузЭкспресс — статус заказа#${String(order._id).slice(-6).toUpperCase()} обновлён`,
+              html: orderStatusEmailHtml(user.name, String(order._id), parsed.data.status, order.serviceName),
+            });
+          }
+        }
+      } catch (emailErr) {
+        console.error('[Orders] Ошибка отправки email-уведомления:', emailErr);
+      }
+
       return reply.send({ success: true, data: order });
     } catch (error) {
       return reply.status(500).send({ success: false, message: 'Ошибка обновления заказа' });
@@ -219,6 +324,41 @@ export const orderRoutes = async (fastify: FastifyInstance) => {
       if (!order) {
         return reply.status(404).send({ success: false, message: 'Заказ не найден' });
       }
+
+      // Пересчёт скидки при завершении заказа
+      if (parsed.data.status === 'completed' && order.userId) {
+        try {
+          const user = await User.findById(order.userId);
+          if (user) {
+            const allUserOrders = await Order.countDocuments({ userId: user._id });
+            user.totalOrders = allUserOrders;
+            if (user.totalOrders >= 20) user.discount = 15;
+            else if (user.totalOrders >= 10) user.discount = 10;
+            else if (user.totalOrders >= 5) user.discount = 5;
+            else user.discount = 0;
+            await user.save();
+          }
+        } catch (discountErr) {
+          console.error('[Orders] Ошибка пересчёта скидки:', discountErr);
+        }
+      }
+
+      // Отправка email-уведомления пользователю
+      try {
+        if (order.userId) {
+          const user = await User.findById(order.userId);
+          if (user?.email) {
+            await sendEmail({
+              to: user.email,
+              subject: `ГрузЭкспресс — статус заказа#${String(order._id).slice(-6).toUpperCase()} обновлён`,
+              html: orderStatusEmailHtml(user.name, String(order._id), parsed.data.status, order.serviceName),
+            });
+          }
+        }
+      } catch (emailErr) {
+        console.error('[Orders] Ошибка отправки email-уведомления:', emailErr);
+      }
+
       return reply.send({ success: true, data: order });
     } catch (error) {
       return reply.status(500).send({ success: false, message: 'Ошибка обновления заказа' });

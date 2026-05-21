@@ -9,11 +9,14 @@ const routes: RouteRecordRaw[] = [
   { path: '/services/:slug', name: 'service-detail', component: () => import('../views/ServiceDetailView.vue') },
   { path: '/delivery', name: 'delivery', component: () => import('../views/DeliveryView.vue') },
   { path: '/guarantee', name: 'guarantee', component: () => import('../views/GuaranteeView.vue') },
+  { path: '/gallery', name: 'gallery', component: () => import('../views/GalleryView.vue') },
   { path: '/contacts', name: 'contacts', component: () => import('../views/ContactsView.vue') },
   { path: '/login', name: 'login', component: () => import('../views/LoginView.vue'), meta: { guest: true } },
   { path: '/register', name: 'register', component: () => import('../views/RegisterView.vue'), meta: { guest: true } },
   { path: '/profile', name: 'profile', component: () => import('../views/ProfileView.vue'), meta: { auth: true } },
   { path: '/order', name: 'order', component: () => import('../views/OrderView.vue') },
+  { path: '/verify-email', name: 'verify-email', component: () => import('../views/VerifyEmailView.vue') },
+  { path: '/privacy', name: 'privacy', component: () => import('../views/PrivacyView.vue') },
   { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import('../views/NotFoundView.vue') },
 ];
 
@@ -28,7 +31,11 @@ export const router = createRouter({
 router.beforeEach(async (to, from) => {
   const authStore = useAuthStore();
   if (!authStore.user && authStore.token) {
-    await authStore.fetchMe();
+    try {
+      await authStore.fetchMe();
+    } catch {
+      // Игнорируем ошибку — навигация продолжится
+    }
   }
 
   if (to.meta.auth && !authStore.isAuthenticated) {
@@ -55,6 +62,7 @@ function getPageTitle(routeName: string): string {
     'service-detail': 'Услуга',
     delivery: 'Доставка',
     guarantee: 'Гарантия',
+    gallery: 'Галерея',
     contacts: 'Контакты',
     login: 'Вход',
     register: 'Регистрация',

@@ -1,18 +1,23 @@
 import { apiClient } from './client';
 import type { CreateOrderDto, PublicOrderDto, Order, PaginatedResponse, ApiResponse } from '@repo/types';
 
-export async function createOrder(data: CreateOrderDto): Promise<Order> {
+export interface OrderResult {
+  data: Order;
+  message?: string;
+}
+
+export async function createOrder(data: CreateOrderDto): Promise<OrderResult> {
   const response = await apiClient.post<ApiResponse<Order>>('/orders', data);
   if (response.data.success && response.data.data) {
-    return response.data.data;
+    return { data: response.data.data, message: response.data.message };
   }
   throw new Error(response.data.message || 'Ошибка создания заказа');
 }
 
-export async function createPublicOrder(data: PublicOrderDto): Promise<Order> {
+export async function createPublicOrder(data: PublicOrderDto): Promise<OrderResult> {
   const response = await apiClient.post<ApiResponse<Order>>('/orders/public', data);
   if (response.data.success && response.data.data) {
-    return response.data.data;
+    return { data: response.data.data, message: response.data.message };
   }
   throw new Error(response.data.message || 'Ошибка отправки заявки');
 }

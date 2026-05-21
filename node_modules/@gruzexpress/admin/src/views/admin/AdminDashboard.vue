@@ -31,6 +31,37 @@
             <span class="stat-label">Пользователей</span>
           </div>
         </div>
+
+        <div class="stat-card">
+          <span class="stat-icon">📷</span>
+          <div class="stat-info">
+            <span class="stat-value">{{ stats.gallery }}</span>
+            <span class="stat-label">Фото в галерее</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Быстрые действия -->
+      <div class="quick-actions">
+        <h2>Быстрые действия</h2>
+        <div class="actions-grid">
+          <router-link to="/services" class="action-card">
+            <span class="action-icon">🛠️</span>
+            <span class="action-label">Управление услугами</span>
+          </router-link>
+          <router-link to="/orders" class="action-card">
+            <span class="action-icon">📦</span>
+            <span class="action-label">Просмотр заказов</span>
+          </router-link>
+          <router-link to="/gallery" class="action-card">
+            <span class="action-icon">📷</span>
+            <span class="action-label">Управление галереей</span>
+          </router-link>
+          <router-link to="/users" class="action-card">
+            <span class="action-icon">👥</span>
+            <span class="action-label">Пользователи</span>
+          </router-link>
+        </div>
       </div>
 
       <section class="recent-orders">
@@ -65,7 +96,7 @@
           Заявок пока нет. Первая заявка появится после оформления.
         </div>
         <div class="recent-actions">
-          <router-link to="/admin/orders" class="btn-link">Все заявки →</router-link>
+          <router-link to="/orders" class="btn-link">Все заявки →</router-link>
         </div>
       </section>
     </template>
@@ -78,9 +109,10 @@ import type { Order } from '@repo/types';
 import { getAllOrders } from '../../api/orders';
 import { getAllServices } from '../../api/services';
 import { getAllUsers } from '../../api/users';
+import { getGalleryItems } from '../../api/gallery';
 
 const loading = ref(true);
-const stats = ref({ orders: 0, services: 0, users: 0 });
+const stats = ref({ orders: 0, services: 0, users: 0, gallery: 0 });
 const recentOrders = ref<Order[]>([]);
 
 const statusLabels: Record<string, string> = {
@@ -117,6 +149,15 @@ async function loadDashboard() {
     if (usersRes.success && usersRes.data) {
       const usersData = usersRes.data as any;
       stats.value.users = usersData.total || 0;
+    }
+
+    try {
+      const galleryRes = await getGalleryItems({ page: 1, limit: 1 });
+      if (galleryRes.success && galleryRes.data) {
+        stats.value.gallery = galleryRes.data.total || 0;
+      }
+    } catch {
+      // gallery stats not critical
     }
   } catch (e) {
     console.error('Ошибка загрузки дашборда:', e);
@@ -163,6 +204,12 @@ function formatDate(dateStr: string): string {
   background: var(--color-bg-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .stat-icon {
@@ -180,6 +227,52 @@ function formatDate(dateStr: string): string {
   display: block;
   font-size: 0.9rem;
   color: var(--color-text-secondary);
+}
+
+/* Quick Actions */
+.quick-actions {
+  margin-bottom: var(--spacing-xl);
+}
+
+.quick-actions h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary);
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.action-icon {
+  font-size: 2rem;
+}
+
+.action-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .recent-orders {

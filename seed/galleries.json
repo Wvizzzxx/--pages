@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "69f46f2e261cea73f5d79d1e",
+    "title": "Болтикик",
+    "description": "Болитки",
+    "imageUrl": "/uploads/1777626926525-s8x3xu1cb.webp",
+    "category": "general",
+    "sortOrder": 1,
+    "isActive": true,
+    "createdAt": "2026-05-01T09:15:26.541Z",
+    "updatedAt": "2026-05-01T09:15:26.541Z",
+    "__v": 0
+  },
+  {
+    "_id": "69f47425261cea73f5d79e84",
+    "title": "пррророро",
+    "description": "роорроро",
+    "imageUrl": "/uploads/1777628197218-owd7a5ize.webp",
+    "category": "delivery",
+    "sortOrder": 2,
+    "isActive": true,
+    "createdAt": "2026-05-01T09:36:37.234Z",
+    "updatedAt": "2026-05-01T09:36:37.234Z",
+    "__v": 0
+  }
+]

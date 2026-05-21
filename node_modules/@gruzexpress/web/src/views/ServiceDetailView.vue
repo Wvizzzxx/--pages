@@ -14,7 +14,10 @@
           </div>
         </div>
 
-        <h1 v-else class="page-title">{{ service.title }}</h1>
+        <div v-else class="service-hero-placeholder">
+          <span class="placeholder-icon">🚚</span>
+          <h1 class="hero-title">{{ service.title }}</h1>
+        </div>
 
         <div class="service-details">
           <div class="service-main">
@@ -162,6 +165,28 @@ function formatPrice(price: number | undefined): string {
   display: flex;
   justify-content: center;
   padding: var(--spacing-xl) 0;
+}
+
+.service-hero-placeholder {
+  height: 300px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  color: white;
+}
+
+.service-hero-placeholder .placeholder-icon {
+  font-size: 4rem;
+}
+
+.service-hero-placeholder .hero-title {
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .service-hero {

@@ -26,5 +26,7 @@ export async function uploadImage(file: File): Promise<{ url: string }> {
   const { data } = await apiClient.post('/upload/image', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
-  return data;
+  // Сервер: { success: true, data: { url: "..." } }
+  // axios оборачивает: data = { success: true, data: { url: "..." } }
+  return data.data || data;
 }

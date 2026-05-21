@@ -34,12 +34,12 @@ export const createOrderSchema = z.object({
 });
 
 export const publicOrderSchema = z.object({
-  serviceId: z.string().min(1, 'Выберите услугу'),
-  serviceName: z.string().optional(),
+  serviceId: z.string().optional().default(''),
+  serviceName: z.string().optional().default(''),
   name: z.string().min(2, 'Укажите ваше имя'),
   phone: z.string().min(10, 'Укажите корректный номер телефона'),
   address: z.string().min(10, 'Укажите полный адрес'),
-  comment: z.string().optional(),
+  comment: z.string().optional().default(''),
 });
 
 export const updateOrderStatusSchema = z.object({

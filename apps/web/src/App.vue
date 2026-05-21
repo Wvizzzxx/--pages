@@ -1,7 +1,5 @@
 <template>
-  <Layout>
-    <router-view />
-  </Layout>
+  <Layout />
   <NotificationToast />
 </template>
 

@@ -1,0 +1,912 @@
+[
+  {
+    "_id": "69ee10aaa12e177353a1f875",
+    "key": "about_hero",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.753Z",
+    "label": "Фото героя",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.488Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f876",
+    "key": "about_team",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.759Z",
+    "label": "Фото команды",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.489Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f877",
+    "key": "about_office",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.761Z",
+    "label": "Фото офиса",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.492Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f878",
+    "key": "delivery_hero",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.762Z",
+    "label": "Фото героя",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.494Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f879",
+    "key": "delivery_tracking",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.763Z",
+    "label": "Фото отслеживания",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.495Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87a",
+    "key": "guarantee_hero",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.766Z",
+    "label": "Фото героя",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.496Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87b",
+    "key": "guarantee_insurance",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.769Z",
+    "label": "Фото страхования",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.497Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87c",
+    "key": "contacts_office",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.770Z",
+    "label": "Фото офиса",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.498Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87d",
+    "key": "contacts_map",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.771Z",
+    "label": "Фото карты",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.498Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87e",
+    "key": "services_city",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.772Z",
+    "label": "Городские перевозки",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.483Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f87f",
+    "key": "services_intercity",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.773Z",
+    "label": "Межгородские перевозки",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.484Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f880",
+    "key": "services_moving",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.774Z",
+    "label": "Переезды",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.485Z",
+    "value": ""
+  },
+  {
+    "_id": "69ee10aaa12e177353a1f881",
+    "key": "services_cargo",
+    "__v": 0,
+    "createdAt": "2026-04-26T13:18:34.774Z",
+    "label": "Негабаритные грузы",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.486Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f89c",
+    "key": "gallery_hero",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.937Z",
+    "label": "Обложка галереи",
+    "section": "photo",
+    "updatedAt": "2026-05-19T18:46:38.499Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f89d",
+    "key": "icon_process_1",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.938Z",
+    "label": "Шаг 1: Заявка",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.500Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f89e",
+    "key": "icon_process_2",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.939Z",
+    "label": "Шаг 2: Расчёт",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.501Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f89f",
+    "key": "icon_process_3",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.940Z",
+    "label": "Шаг 3: Доставка",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.503Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a0",
+    "key": "icon_process_4",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.941Z",
+    "label": "Шаг 4: Получение",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.505Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a1",
+    "key": "icon_feature_1",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.945Z",
+    "label": "Быстрая доставка",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.508Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a2",
+    "key": "icon_feature_2",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.947Z",
+    "label": "Гарантия сохранности",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.512Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a3",
+    "key": "icon_feature_3",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.948Z",
+    "label": "Доступные цены",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.518Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a4",
+    "key": "icon_feature_4",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.949Z",
+    "label": "Поддержка 24/7",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.521Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a5",
+    "key": "icon_feature_5",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.950Z",
+    "label": "GPS-отслеживание",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.524Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a6",
+    "key": "icon_feature_6",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.952Z",
+    "label": "Лучшие специалисты",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.531Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a7",
+    "key": "icon_order_1",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.953Z",
+    "label": "Быстрый ответ",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.535Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a8",
+    "key": "icon_order_2",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.966Z",
+    "label": "Гарантия",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.537Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8a9",
+    "key": "icon_order_3",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.967Z",
+    "label": "Лучшие цены",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.539Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8aa",
+    "key": "icon_phone",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.968Z",
+    "label": "Телефон в CTA",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.547Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8ab",
+    "key": "icon_star",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.972Z",
+    "label": "Звезда (рейтинг)",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.553Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8ac",
+    "key": "icon_zoom",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.973Z",
+    "label": "Лупа (галерея)",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.555Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8ad",
+    "key": "icon_success",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.975Z",
+    "label": "Успех",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.564Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8ae",
+    "key": "icon_loader",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.976Z",
+    "label": "Загрузка",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.566Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8af",
+    "key": "icon_quote",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.977Z",
+    "label": "Цитата (отзывы)",
+    "section": "icon",
+    "updatedAt": "2026-05-19T18:46:38.567Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b0",
+    "key": "hero_badge",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.978Z",
+    "label": "Текст бейджа",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.571Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b1",
+    "key": "hero_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.980Z",
+    "label": "Заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.574Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b2",
+    "key": "hero_subtitle",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.981Z",
+    "label": "Подзаголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.576Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b3",
+    "key": "hero_cta_primary",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.982Z",
+    "label": "CTA кнопка (текст)",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.577Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b4",
+    "key": "hero_cta_secondary",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.984Z",
+    "label": "CTA кнопка 2 (текст)",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.580Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b5",
+    "key": "section_process_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.986Z",
+    "label": "\"Как мы работаем\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.583Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b6",
+    "key": "section_process_desc",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.988Z",
+    "label": "\"Как мы работаем\" — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.591Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b7",
+    "key": "section_features_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.989Z",
+    "label": "\"Преимущества\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.597Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b8",
+    "key": "section_features_desc",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.990Z",
+    "label": "\"Преимущества\" — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.600Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8b9",
+    "key": "section_services_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.991Z",
+    "label": "\"Услуги\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.602Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8ba",
+    "key": "section_services_desc",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.993Z",
+    "label": "\"Услуги\" — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.603Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8bb",
+    "key": "section_gallery_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.994Z",
+    "label": "\"Галерея\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.604Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8bc",
+    "key": "section_gallery_desc",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.995Z",
+    "label": "\"Галерея\" — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.605Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb330a12e177353a1f8bd",
+    "key": "section_about_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:16.997Z",
+    "label": "\"О компании\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.606Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8be",
+    "key": "section_about_text_1",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.000Z",
+    "label": "\"О компании\" — текст 1",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.607Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8bf",
+    "key": "section_about_text_2",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.001Z",
+    "label": "\"О компании\" — текст 2",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.607Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c0",
+    "key": "section_testimonials_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.002Z",
+    "label": "\"Отзывы\" — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.609Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c1",
+    "key": "section_cta_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.003Z",
+    "label": "CTA — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.612Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c2",
+    "key": "section_cta_desc",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.004Z",
+    "label": "CTA — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.614Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c3",
+    "key": "process_step_1_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.005Z",
+    "label": "Шаг 1 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.616Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c4",
+    "key": "process_step_1_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.006Z",
+    "label": "Шаг 1 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.617Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c5",
+    "key": "process_step_2_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.007Z",
+    "label": "Шаг 2 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.618Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c6",
+    "key": "process_step_2_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.008Z",
+    "label": "Шаг 2 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.619Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c7",
+    "key": "process_step_3_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.012Z",
+    "label": "Шаг 3 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.620Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c8",
+    "key": "process_step_3_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.014Z",
+    "label": "Шаг 3 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.621Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8c9",
+    "key": "process_step_4_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.015Z",
+    "label": "Шаг 4 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.622Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8ca",
+    "key": "process_step_4_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.016Z",
+    "label": "Шаг 4 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.625Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8cb",
+    "key": "feature_1_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.017Z",
+    "label": "Преимущество 1 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.628Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8cc",
+    "key": "feature_1_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.018Z",
+    "label": "Преимущество 1 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.629Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8cd",
+    "key": "feature_2_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.019Z",
+    "label": "Преимущество 2 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.630Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8ce",
+    "key": "feature_2_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.021Z",
+    "label": "Преимущество 2 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.631Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8cf",
+    "key": "feature_3_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.023Z",
+    "label": "Преимущество 3 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.632Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d0",
+    "key": "feature_3_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.025Z",
+    "label": "Преимущество 3 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.633Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d1",
+    "key": "feature_4_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.026Z",
+    "label": "Преимущество 4 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.634Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d2",
+    "key": "feature_4_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.028Z",
+    "label": "Преимущество 4 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.637Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d3",
+    "key": "feature_5_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.029Z",
+    "label": "Преимущество 5 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.640Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d4",
+    "key": "feature_5_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.030Z",
+    "label": "Преимущество 5 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.642Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d5",
+    "key": "feature_6_title",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.031Z",
+    "label": "Преимущество 6 — заголовок",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.643Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d6",
+    "key": "feature_6_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.032Z",
+    "label": "Преимущество 6 — описание",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.644Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d7",
+    "key": "testimonial_1_name",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.033Z",
+    "label": "Отзыв 1 — имя",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.645Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d8",
+    "key": "testimonial_1_role",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.034Z",
+    "label": "Отзыв 1 — роль",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.646Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8d9",
+    "key": "testimonial_1_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.037Z",
+    "label": "Отзыв 1 — текст",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.647Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8da",
+    "key": "testimonial_2_name",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.039Z",
+    "label": "Отзыв 2 — имя",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.648Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8db",
+    "key": "testimonial_2_role",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.040Z",
+    "label": "Отзыв 2 — роль",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.652Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8dc",
+    "key": "testimonial_2_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.041Z",
+    "label": "Отзыв 2 — текст",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.653Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8dd",
+    "key": "testimonial_3_name",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.042Z",
+    "label": "Отзыв 3 — имя",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.655Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8de",
+    "key": "testimonial_3_role",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.044Z",
+    "label": "Отзыв 3 — роль",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.657Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8df",
+    "key": "testimonial_3_text",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.045Z",
+    "label": "Отзыв 3 — текст",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.658Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e0",
+    "key": "footer_description",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.047Z",
+    "label": "Описание в футере",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.659Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e1",
+    "key": "footer_phone_label",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.048Z",
+    "label": "Телефон (текст)",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.660Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e2",
+    "key": "footer_address",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.051Z",
+    "label": "Адрес",
+    "section": "text",
+    "updatedAt": "2026-05-19T18:46:38.661Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e3",
+    "key": "contact_phone",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.053Z",
+    "label": "📞 Телефон",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.662Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e4",
+    "key": "contact_email",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.054Z",
+    "label": "📧 Email",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.666Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e5",
+    "key": "contact_address",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.055Z",
+    "label": "📍 Адрес",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.667Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e6",
+    "key": "contact_workhours",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.057Z",
+    "label": "⏰ Режим работы",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.668Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e7",
+    "key": "social_vk",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.058Z",
+    "label": "VK (ссылка)",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.670Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e8",
+    "key": "social_telegram",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.059Z",
+    "label": "Telegram (ссылка)",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.671Z",
+    "value": ""
+  },
+  {
+    "_id": "69efb331a12e177353a1f8e9",
+    "key": "social_whatsapp",
+    "__v": 0,
+    "createdAt": "2026-04-27T19:04:17.061Z",
+    "label": "WhatsApp (ссылка)",
+    "section": "link",
+    "updatedAt": "2026-05-19T18:46:38.673Z",
+    "value": ""
+  }
+]

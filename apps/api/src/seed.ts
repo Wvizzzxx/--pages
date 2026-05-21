@@ -7,10 +7,10 @@ import { connectDB } from './config/db';
 const seedData = async () => {
   try {
     await connectDB();
-    console.log('🗑️  Очистка существующих данных...');
+  //  console.log('🗑️  Очистка существующих данных...');
 
-    await User.deleteMany({});
-    await Service.deleteMany({});
+  //  await User.deleteMany({});
+   // await Service.deleteMany({});
 
     // Создаём админа
     console.log('👤 Создание администратора...');

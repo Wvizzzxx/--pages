@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [vue()],
   resolve: {
+    extensions: ['.mjs', '.mts', '.ts', '.js', '.jsx', '.tsx', '.json'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@repo/types': path.resolve(__dirname, '../../packages/types/src/index.ts'),

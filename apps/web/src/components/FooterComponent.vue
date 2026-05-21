@@ -20,6 +20,7 @@
             <li><router-link to="/about">О компании</router-link></li>
             <li><router-link to="/delivery">Доставка</router-link></li>
             <li><router-link to="/guarantee">Гарантия</router-link></li>
+            <li><router-link to="/gallery">Галерея</router-link></li>
             <li><router-link to="/contacts">Контакты</router-link></li>
           </ul>
         </div>
@@ -123,8 +124,8 @@
           © {{ currentYear }} «ГрузЭкспресс». Все права защищены.
         </p>
         <div class="footer-bottom-links">
-          <a href="#" class="footer-bottom-link">Политика конфиденциальности</a>
-          <a href="#" class="footer-bottom-link">Пользовательское соглашение</a>
+          <router-link to="/privacy" class="footer-bottom-link">Политика конфиденциальности</router-link>
+          <router-link to="/privacy" class="footer-bottom-link">Пользовательское соглашение</router-link>
         </div>
       </div>
     </div>
@@ -174,8 +175,8 @@ onUnmounted(() => {
 
 <style scoped>
 .site-footer {
-  background: var(--color-gray-900);
-  color: var(--color-gray-300);
+  background: var(--color-gray-950);
+  color: var(--color-gray-400);
   margin-top: auto;
 }
 
@@ -187,32 +188,18 @@ onUnmounted(() => {
 }
 
 .footer-section {
-  animation: fadeInUp 0.5s ease forwards;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
 }
 
-.footer-section:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.footer-section:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.footer-section:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.footer-section:nth-child(4) {
-  animation-delay: 0.4s;
-}
+.footer-section:nth-child(1) { animation-delay: 0.1s; }
+.footer-section:nth-child(2) { animation-delay: 0.2s; }
+.footer-section:nth-child(3) { animation-delay: 0.3s; }
+.footer-section:nth-child(4) { animation-delay: 0.4s; }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .footer-about {
@@ -222,11 +209,12 @@ onUnmounted(() => {
 .footer-logo {
   display: inline-block;
   margin-bottom: var(--spacing-md);
-  transition: opacity var(--transition-fast);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .footer-logo:hover {
   opacity: 0.85;
+  transform: scale(1.02);
 }
 
 .footer-logo-text {
@@ -235,7 +223,7 @@ onUnmounted(() => {
   font-weight: 800;
   color: var(--color-white);
   letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #ffffff, #cde8f0);
+  background: linear-gradient(135deg, #ffffff, #a8d5e2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -268,13 +256,13 @@ onUnmounted(() => {
   color: var(--color-gray-400);
   text-decoration: none;
   font-size: var(--font-size-sm);
-  transition: all var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-block;
 }
 
 .footer-links a:hover {
   color: var(--color-white);
-  transform: translateX(5px);
+  transform: translateX(8px);
 }
 
 .footer-contacts {
@@ -302,7 +290,7 @@ onUnmounted(() => {
   color: var(--color-white);
   text-decoration: none;
   font-size: var(--font-size-sm);
-  transition: color var(--transition-fast);
+  transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
@@ -334,7 +322,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-lg) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   flex-wrap: wrap;
   gap: var(--spacing-md);
 }
@@ -354,7 +342,7 @@ onUnmounted(() => {
   color: var(--color-gray-500);
   text-decoration: none;
   font-size: var(--font-size-xs);
-  transition: color var(--transition-fast);
+  transition: color 0.3s ease;
 }
 
 .footer-bottom-link:hover {
@@ -368,7 +356,8 @@ onUnmounted(() => {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+  background-size: 200% auto;
   color: var(--color-white);
   border: none;
   border-radius: 50%;
@@ -376,23 +365,24 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 20px rgba(var(--color-secondary-rgb), .35);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
-  transition: all var(--transition-base);
-  z-index: 100;
+  transform: translateY(20px) scale(0.8);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: var(--z-dropdown);
 }
 
 .scroll-to-top.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .scroll-to-top:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-3px);
+  background-position: right center;
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 8px 30px rgba(var(--color-secondary-rgb), .5);
 }
 
 /* Responsive */

@@ -20,6 +20,14 @@
             <span class="nav-icon">👥</span>
             Пользователи
           </router-link>
+          <router-link to="/gallery" class="nav-link">
+            <span class="nav-icon">📷</span>
+            Галерея
+          </router-link>
+          <router-link to="/site-photos" class="nav-link">
+            <span class="nav-icon">🖼️</span>
+            Фото сайта
+          </router-link>
         </nav>
       </aside>
       <main class="admin-main">

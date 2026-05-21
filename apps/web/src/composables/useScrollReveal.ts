@@ -6,14 +6,17 @@ interface UseScrollRevealOptions {
   delay?: number;
 }
 
+/**
+ * Для наблюдения за одним элементом (ref).
+ */
 export function useScrollReveal(
-  target: Ref<HTMLElement | null> | null,
+  target?: Ref<HTMLElement | null> | null,
   options: UseScrollRevealOptions = {}
 ) {
   const {
     threshold = 0.1,
-    rootMargin = '0px',
-    delay = 100,
+    rootMargin = '0px 0px -50px 0px',
+    delay = 80,
   } = options;
 
   const isVisible = ref(false);
@@ -21,6 +24,7 @@ export function useScrollReveal(
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   const observe = (element: HTMLElement) => {
+    if (observer) observer.disconnect();
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,7 +39,6 @@ export function useScrollReveal(
       },
       { threshold, rootMargin }
     );
-
     observer.observe(element);
   };
 
@@ -43,75 +46,47 @@ export function useScrollReveal(
     if (observer && target?.value) {
       observer.unobserve(target.value);
     }
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+    if (timeoutId) clearTimeout(timeoutId);
   };
 
-  onMounted(() => {
-    if (target?.value) {
-      observe(target.value);
-    }
-  });
-
-  onUnmounted(() => {
-    unobserve();
-  });
-
-  return { isVisible, observe, unobserve };
-}
-
-export function useScrollRevealAll(
-  selector = '.scroll-reveal',
-  options: UseScrollRevealOptions = {}
-) {
-  const {
-    threshold = 0.1,
-    rootMargin = '0px',
-    delay = 100,
-  } = options;
-
-  let observer: IntersectionObserver | null = null;
-  const elements = ref<HTMLElement[]>([]);
-
-  const init = () => {
-    const observedElements = document.querySelectorAll<HTMLElement>(selector);
-    elements.value = Array.from(observedElements);
+  /**
+   * Инициализация observer для всех .scroll-reveal элементов на странице.
+   * Используется в HomeView и других страницах.
+   */
+  const initObserver = (selector = '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right') => {
+    if (observer) observer.disconnect();
+    const elements = document.querySelectorAll<HTMLElement>(selector);
+    if (!elements.length) return;
 
     observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const elementIndex = elements.value.indexOf(entry.target as HTMLElement);
-            setTimeout(() => {
-              entry.target.classList.add('visible');
-              observer?.unobserve(entry.target as HTMLElement);
-            }, elementIndex * 100 + delay);
+            entry.target.classList.add('visible');
+            observer?.unobserve(entry.target);
           }
         });
       },
       { threshold, rootMargin }
     );
 
-    observedElements.forEach((el) => {
-      observer?.observe(el);
-    });
+    elements.forEach((el) => observer?.observe(el));
   };
 
-  const destroy = () => {
+  const disconnect = () => {
     if (observer) {
-      elements.value.forEach((el) => observer?.unobserve(el));
       observer.disconnect();
+      observer = null;
     }
+    if (timeoutId) clearTimeout(timeoutId);
   };
 
-  onMounted(() => {
-    init();
-  });
+  if (target) {
+    onMounted(() => {
+      if (target.value) observe(target.value);
+    });
+    onUnmounted(() => unobserve());
+  }
 
-  onUnmounted(() => {
-    destroy();
-  });
-
-  return { elements, init, destroy };
+  return { isVisible, observe, unobserve, initObserver, disconnect };
 }

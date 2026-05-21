@@ -9,6 +9,8 @@ const routes: RouteRecordRaw[] = [
     { path: 'services', name: 'admin-services', component: () => import('../views/admin/AdminServicesView.vue') },
     { path: 'orders', name: 'admin-orders', component: () => import('../views/admin/AdminOrdersView.vue') },
     { path: 'users', name: 'admin-users', component: () => import('../views/admin/AdminUsersView.vue') },
+    { path: 'gallery', name: 'admin-gallery', component: () => import('../views/admin/AdminGalleryView.vue') },
+    { path: 'site-photos', name: 'admin-site-photos', component: () => import('../views/admin/AdminSiteSettingsView.vue') },
   ]},
 ];
 

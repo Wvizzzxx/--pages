@@ -198,3 +198,30 @@ export interface ApiResponseWithErrors {
   message?: string;
   errors?: ValidationError[];
 }
+
+// ============================================
+// Gallery Types
+// ============================================
+
+export interface GalleryItem {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  category: string;
+  sortOrder: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateGalleryDto {
+  title: string;
+  description?: string;
+  imageUrl: string;
+  category?: string;
+  sortOrder?: number;
+  isActive?: boolean;
+}
+
+export interface UpdateGalleryDto extends Partial<CreateGalleryDto> {}

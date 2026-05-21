@@ -3,8 +3,61 @@
     <div class="container">
       <BaseBreadcrumbs :items="breadcrumbs" />
 
-      <div class="auth-card">
-        <h1 class="auth-title">Регистрация</h1>
+      <!-- Экран "Проверьте почту" -->
+      <div v-if="registrationComplete" class="auth-card">
+        <div class="verify-icon">
+          <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <h1 class="auth-title">Проверьте вашу почту</h1>
+        <p class="auth-subtitle">
+          Мы отправили письмо с ссылкой для подтверждения на<br>
+          <strong>{{ registeredEmail }}</strong>
+        </p>
+
+        <!-- Dev-режим: прямая ссылка для подтверждения -->
+        <div v-if="devVerificationUrl" class="dev-notice">
+          <div class="dev-notice-header">
+            <span class="dev-badge">DEV</span>
+            <span>Email-провайдер не настроен — письмо не доходит до реальной почты</span>
+          </div>
+          <p class="dev-subtitle">Нажмите кнопку ниже для подтверждения email:</p>
+          <a :href="devVerificationUrl" class="btn-dev-verify" target="_blank">
+            ✅ Подтвердить email (прямая ссылка)
+          </a>
+          <p v-if="devEmailPreviewUrl" class="dev-subtitle" style="margin-top: 8px;">
+            📧 <a :href="devEmailPreviewUrl" target="_blank" class="dev-link">Просмотреть письмо (тест)</a>
+          </p>
+          <p class="dev-subtitle" style="margin-top: 10px; font-size: 0.8rem; color: #92400e;">
+            💡 Для реальной отправки добавьте в <code>apps/api/.env</code>:<br>
+            <code>RESEND_API_KEY=re_ваш_ключ</code> (бесплатно на <a href="https://resend.com" target="_blank" class="dev-link">resend.com</a>)
+          </p>
+        </div>
+
+        <div class="verify-actions">
+          <button class="btn-primary" @click="resendEmail" :disabled="resendCooldown">
+            {{ resendCooldown ? `Отправить повторно (${resendCooldown}с)` : 'Отправить повторно' }}
+          </button>
+          <router-link to="/login" class="btn-outline">Перейти ко входу</router-link>
+        </div>
+      </div>
+
+      <!-- Форма регистрации -->
+      <div v-else class="auth-card">
+        <div class="auth-header">
+          <div class="auth-icon">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <line x1="20" y1="8" x2="20" y2="14"/>
+              <line x1="23" y1="11" x2="17" y2="11"/>
+            </svg>
+          </div>
+          <h1 class="auth-title">Регистрация</h1>
+          <p class="auth-subtitle">Создайте аккаунт для оформления заказов и отслеживания доставок</p>
+        </div>
 
         <form @submit.prevent="handleRegister" class="auth-form">
           <BaseInput
@@ -46,6 +99,21 @@
             @blur="form.markTouched('confirmPassword')"
           />
 
+          <!-- Галочка политики безопасности -->
+          <div class="policy-check">
+            <label class="checkbox-label">
+              <input type="checkbox" v-model="acceptPolicy" class="checkbox-input" />
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">
+                Я согласен с
+                <router-link to="/privacy" target="_blank" class="policy-link">политикой конфиденциальности</router-link>
+                и
+                <router-link to="/privacy" target="_blank" class="policy-link">обработкой персональных данных</router-link>
+              </span>
+            </label>
+            <span v-if="policyError" class="form-error">{{ policyError }}</span>
+          </div>
+
           <BaseButton type="submit" :disabled="submitting" class="submit-btn">
             {{ submitting ? 'Регистрация...' : 'Зарегистрироваться' }}
           </BaseButton>
@@ -64,7 +132,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import BaseBreadcrumbs from '@repo/ui/components/BaseBreadcrumbs.vue';
 import BaseInput from '@repo/ui/components/BaseInput.vue';
 import BaseButton from '@repo/ui/components/BaseButton.vue';
@@ -74,7 +141,6 @@ import { useFormValidation } from '../composables/useFormValidation';
 import { useNotifications } from '../composables/useNotifications';
 import type { BreadcrumbItem, ApiResponse, AuthResponse } from '@repo/types';
 
-const router = useRouter();
 const authStore = useAuthStore();
 const { success, error } = useNotifications();
 
@@ -111,11 +177,56 @@ const form = useFormValidation(
 );
 
 const submitting = ref(false);
+const acceptPolicy = ref(false);
+const policyError = ref('');
+const registrationComplete = ref(false);
+const registeredEmail = ref('');
+const resendCooldown = ref(0);
+const devVerificationUrl = ref('');
+const devEmailPreviewUrl = ref('');
+
+let cooldownInterval: ReturnType<typeof setInterval> | null = null;
+
+function startCooldown() {
+  resendCooldown.value = 60;
+  cooldownInterval = setInterval(() => {
+    resendCooldown.value--;
+    if (resendCooldown.value <= 0) {
+      clearInterval(cooldownInterval!);
+      cooldownInterval = null;
+    }
+  }, 1000);
+}
+
+async function resendEmail() {
+  if (resendCooldown.value > 0) return;
+  try {
+    const res = await fetch('/api/auth/resend-verification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: registeredEmail.value }),
+    });
+    const data = await res.json();
+    if (data.devMode && data.verificationUrl) {
+      devVerificationUrl.value = data.verificationUrl;
+      devEmailPreviewUrl.value = data.emailPreviewUrl || '';
+    }
+    success('Письмо отправлено повторно');
+    startCooldown();
+  } catch {
+    error('Ошибка отправки. Попробуйте позже.');
+  }
+}
 
 async function handleRegister() {
-  if (!form.validate()) {
+  policyError.value = '';
+
+  if (!acceptPolicy.value) {
+    policyError.value = 'Необходимо принять политику безопасности';
     return;
   }
+
+  if (!form.validate()) return;
 
   submitting.value = true;
 
@@ -125,10 +236,17 @@ async function handleRegister() {
       form.values.email,
       form.values.password
     ) as ApiResponse<AuthResponse> | undefined;
-    
+
     if (response?.success && response.data) {
-      success('Регистрация прошла успешно');
-      router.push('/profile');
+      registeredEmail.value = form.values.email;
+      registrationComplete.value = true;
+      // Если dev-режим — сохраняем ссылку для подтверждения
+      const respData = response.data as any;
+      if (respData.devMode && respData.verificationUrl) {
+        devVerificationUrl.value = respData.verificationUrl;
+        devEmailPreviewUrl.value = respData.emailPreviewUrl || '';
+      }
+      success('Регистрация успешна! Проверьте вашу почту.');
     } else {
       error((response && (response as any).message) || 'Ошибка при регистрации');
     }
@@ -149,7 +267,7 @@ async function handleRegister() {
 }
 
 .auth-card {
-  max-width: 420px;
+  max-width: 440px;
   margin: 0 auto;
   padding: var(--spacing-xl);
   background: var(--color-bg-white);
@@ -157,18 +275,109 @@ async function handleRegister() {
   box-shadow: var(--shadow-md);
 }
 
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.auth-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 .auth-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--color-text-primary);
   text-align: center;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.auth-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  text-align: center;
+  margin: 0;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+}
+
+/* Policy checkbox */
+.policy-check {
+  margin-top: var(--spacing-xs);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--color-gray-300);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  margin-top: 1px;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+.checkbox-text {
+  color: var(--color-text-secondary);
+}
+
+.policy-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.policy-link:hover {
+  text-decoration: underline;
+}
+
+.form-error {
+  display: block;
+  color: var(--color-error);
+  font-size: 0.8rem;
+  margin-top: 4px;
 }
 
 .submit-btn {
@@ -192,13 +401,128 @@ async function handleRegister() {
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .auth-card {
-    padding: var(--spacing-lg);
-  }
+/* Verify screen */
+.verify-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto var(--spacing-lg);
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #065f46;
+}
 
-  .auth-title {
-    font-size: 1.5rem;
-  }
+.verify-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: var(--color-primary-dark); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-outline {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Dev mode notice */
+.dev-notice {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: #fffbeb;
+  border: 1px solid #fbbf24;
+  border-radius: var(--radius-md);
+}
+
+.dev-notice-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 8px;
+}
+
+.dev-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.dev-subtitle {
+  font-size: 0.85rem;
+  color: #78716c;
+  margin: 0;
+}
+
+.btn-dev-verify {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: #16a34a;
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.btn-dev-verify:hover {
+  background: #15803d;
+}
+
+.dev-link {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .auth-card { padding: var(--spacing-lg); }
+  .auth-title { font-size: 1.5rem; }
 }
 </style>

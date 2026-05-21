@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "69edefe90d9650c497d4965e",
+    "name": "Администратор",
+    "email": "admin@gruzexpress.ru",
+    "password": "$2a$12$ywrqeJ3BHmrGx1Hwi4/8/uwFRswN4viub27DSvjDfKn1Y1Meu9rHS",
+    "role": "admin",
+    "phone": "",
+    "avatar": "",
+    "resetToken": null,
+    "resetTokenExpires": null,
+    "createdAt": "2026-04-26T10:58:49.622Z",
+    "updatedAt": "2026-04-26T10:58:49.622Z",
+    "__v": 0
+  },
+  {
+    "_id": "69f4611557008e81e107bf21",
+    "name": "Ivan Ivanov",
+    "email": "wvizzzxx@yandex.ru",
+    "password": "$2a$12$jhQGNdFVWpu0jnjcfkja0eGhciVZVwYLIT9uEjrcr2iQELqnb1kpi",
+    "role": "user",
+    "phone": "",
+    "avatar": "",
+    "emailVerified": false,
+    "verificationToken": "bbfba2e7111fc880825ccf56cb39a65a8003f678422eca1b4fe662f697659461",
+    "discount": 5,
+    "totalOrders": 7,
+    "resetToken": null,
+    "resetTokenExpires": null,
+    "createdAt": "2026-05-01T08:15:17.196Z",
+    "updatedAt": "2026-05-19T19:31:10.875Z",
+    "__v": 0
+  },
+  {
+    "_id": "69f4655b57008e81e107bf76",
+    "name": "Иван Иванов",
+    "email": "darkzimin@gmail.com",
+    "password": "$2a$12$4PuP1i2gL5pwkTZIAuTREOw8NuccH6uSvdGITJkg2Wu8Aroo7q0r2",
+    "role": "user",
+    "phone": "",
+    "avatar": "",
+    "emailVerified": false,
+    "verificationToken": "5c75fde8d4ac539ef12e0fbb91e8fbb18764c7088d9ec77d5c82c7ba275641de",
+    "discount": 0,
+    "totalOrders": 0,
+    "resetToken": null,
+    "resetTokenExpires": null,
+    "createdAt": "2026-05-01T08:33:31.878Z",
+    "updatedAt": "2026-05-01T08:33:31.878Z",
+    "__v": 0
+  }
+]

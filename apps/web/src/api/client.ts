@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import type { ApiResponse } from '@repo/types';
 import { useAuthStore } from '../stores/auth';
+import { router } from '../router';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -28,7 +29,7 @@ export function createApiClient(): AxiosInstance {
       if (error.response?.status === 401) {
         const authStore = useAuthStore();
         authStore.logout();
-        window.location.href = '/login';
+        router.push({ name: 'login' });
       }
 
       return Promise.reject(error);

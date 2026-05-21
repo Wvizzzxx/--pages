@@ -132,11 +132,18 @@
           <div class="form-group">
             <label class="form-label">Изображение</label>
             <input
+              v-model="form.image"
+              type="text"
+              class="form-input"
+              placeholder="Вставьте ссылку на изображение..."
+            />
+            <input
               ref="fileInput"
               type="file"
               accept="image/*"
               @change="handleFileChange"
               class="form-file"
+              style="margin-top: 8px"
             />
             <div v-if="previewUrl" class="image-preview">
               <img :src="previewUrl" alt="preview" />

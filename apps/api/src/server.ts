@@ -10,6 +10,8 @@ import { serviceRoutes } from './routes/services';
 import { orderRoutes } from './routes/orders';
 import { uploadRoutes } from './routes/upload';
 import { userRoutes } from './routes/users';
+import { galleryPublicRoutes, galleryAdminRoutes } from './routes/gallery';
+import { siteSettingsPublicRoutes, siteSettingsAdminRoutes } from './routes/siteSettings';
 
 // Load environment variables
 dotenv.config();
@@ -32,7 +34,7 @@ server.setErrorHandler(function (error, request, reply) {
 
 // CORS
 server.register(cors, {
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
   credentials: true,
 });
 
@@ -45,7 +47,7 @@ server.register(fastifyStatic, {
 // Multipart for file uploads
 server.register(fastifyMultipart, {
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    fileSize: 10 * 1024 * 1024, // 10MB
   },
 });
 
@@ -58,13 +60,17 @@ server.register(serviceRoutes, { prefix: '/api/services' });
 server.register(orderRoutes, { prefix: '/api/orders' });
 server.register(uploadRoutes, { prefix: '/api/upload' });
 server.register(userRoutes, { prefix: '/api/users' });
+server.register(galleryPublicRoutes, { prefix: '/api/gallery' });
+server.register(galleryAdminRoutes, { prefix: '/api/admin/gallery' });
+server.register(siteSettingsPublicRoutes, { prefix: '/api/settings' });
+server.register(siteSettingsAdminRoutes, { prefix: '/api/admin/settings' });
 
 const start = async () => {
   try {
     await connectDB();
     await server.listen({ port: 4000, host: '0.0.0.0' });
     console.log('Server running on port 4000');
-  } catch (err) {
+  } catch (err: any) {
     server.log.error(err);
     process.exit(1);
   }
