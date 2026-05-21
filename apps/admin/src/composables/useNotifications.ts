@@ -9,7 +9,7 @@ export function useNotifications() {
   function addNotification(
     type: NotificationType,
     title: string,
-    message: string,
+    message?: string,
     duration: number = 5000
   ) {
     const notification: Notification = {
