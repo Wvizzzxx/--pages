@@ -797,17 +797,12 @@
         features:['Грузы до 50 тонн','Сертифицированные специалисты','Спецоборудование','Демонтаж и монтаж','Полная страховка'] }
     ];
 
-    // === GALLERY DATA (cargo transport photos) ===
+    // === GALLERY DATA (same photos as services) ===
     const galleryItems = [
-      { title:'Городская доставка', desc:'Разгрузка товара в городе', img:'uploads/1779213618468-pr95g4u2a.jpg', cat:'Доставка' },
-      { title:'Междугородний рейс', desc:'Длинный рейс по России', img:'uploads/1779213624128-0xrehkmxu.jpg', cat:'Перевозки' },
-      { title:'Погрузка груза', desc:'Профессиональная погрузка', img:'uploads/1779213626969-2m3702kzs.jpg', cat:'Работы' },
-      { title:'Транспортная компания', desc:'Наш автопарк', img:'uploads/1779213631109-voltwvl59.jpg', cat:'Автопарк' },
-      { title:'Доставка по городу', desc:'Оперативная доставка', img:'uploads/1779216161886-63etvalca.jpg', cat:'Доставка' },
-      { title:'Грузовой транспорт', desc:'Современный автопарк', img:'uploads/1779216169876-tovs48wbg.jpeg', cat:'Автопарк' },
-      { title:'Разгрузка', desc:'Аккуратная разгрузка', img:'uploads/1779306395281-4q6bazqdq.webp', cat:'Работы' },
-      { title:'Грузоперевозки', desc:'Междугородние перевозки', img:'uploads/1779306402567-rkrckuxra.webp', cat:'Перевозки' },
-      { title:'Наша техника', desc:'Современные грузовики', img:'uploads/1779306407271-libr5icd4.webp', cat:'Автопарк' }
+      { title:'Городская доставка', desc:'Быстрая доставка по городу', img:services[0].image, cat:'Доставка' },
+      { title:'Междугородние перевозки', desc:'Доставка между городами России', img:services[1].image, cat:'Перевозки' },
+      { title:'Офисные переезды', desc:'Профессиональные переезды офисов', img:services[2].image, cat:'Переезды' },
+      { title:'Такелажные работы', desc:'Перемещение тяжёлого оборудования', img:services[3].image, cat:'Такелаж' }
     ];
 
     const serviceIcons = {'gorodskaya-dostavka':'🏙️','mezhgorodnie-perevozki':'🛣️','ofisnye-pereezdy':'📦','takelazhnye-raboty':'🏗️'};
